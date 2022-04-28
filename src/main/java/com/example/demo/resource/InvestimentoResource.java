@@ -26,7 +26,7 @@ import com.example.demo.repository.InvestimentoRepository;
 public class InvestimentoResource {
 
 	@Autowired 
-	private InvestimentoRepository InvestimentoRepository;
+	private InvestimentoRepository investimentoRepository;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
