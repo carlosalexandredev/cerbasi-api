@@ -40,7 +40,7 @@ public class Despesa {
 
 	@NotNull
 	@Column(name = "data_despesa")
-	private LocalDate dataInvestimento;
+	private LocalDate dataDespesa;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
