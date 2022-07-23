@@ -8,12 +8,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
 @Setter
-@Builder
 @Table(name = "pessoa" )
 public class UsuarioDTO {
 
@@ -22,6 +22,10 @@ public class UsuarioDTO {
 	@NotNull
 	@Size(max = 80)
 	private String nome;
+
+	@NotNull
+	@Min(value = 18, message = "Usuario deve ser maior de 18 anos")
+	private Integer idade;
 
 	@Email
 	@NotNull

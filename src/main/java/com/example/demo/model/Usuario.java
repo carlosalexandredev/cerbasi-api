@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,6 +31,10 @@ public class Usuario {
 	@NotNull
 	@Size(max = 80)
 	private String nome;
+
+	@NotNull
+	@Min(value = 18, message = "Usuario deve ser maior de 18 anos")
+	private Integer idade;
 
 	@Email
 	@NotNull
