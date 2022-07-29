@@ -1,4 +1,4 @@
-package com.example.demo.model.dto.enuns;
+package com.example.demo.model.dto;
 
 public enum TipoUsuario {
     ADM,

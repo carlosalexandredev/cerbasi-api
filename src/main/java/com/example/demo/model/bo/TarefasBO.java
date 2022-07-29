@@ -1,22 +1,19 @@
 package com.example.demo.model.bo;
 
 import com.example.demo.model.Tarefa;
-import com.example.demo.model.bo.event.RecursoCriadoEvent;
-import com.example.demo.model.bo.exceptionhandler.ApplicationExceptionHandler;
 import com.example.demo.model.bo.exceptionhandler.PessoaInexistenteOuInativaException;
 import com.example.demo.model.dto.tarefas.TarefaDTO;
+import com.example.demo.model.dto.usuario.UsuarioDTO;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Usuario;
-import com.example.demo.model.dao.tarefa.TarefaDAO;
-import com.example.demo.model.dao.usuario.PessoaDAO;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import com.example.demo.model.dao.TarefaDAO;
+import com.example.demo.model.dao.PessoaDAO;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
@@ -72,7 +69,6 @@ public class TarefasBO {
 		if(!Objects.nonNull(usuario) || !usuario.isAtivo())
 			throw new PessoaInexistenteOuInativaException();
 		Tarefa tarefaSalva = tarefaDAO.save(modelMapper.map(tarefa, Tarefa.class));
-		publisher.publishEvent(new RecursoCriadoEvent(this, response, tarefaSalva.getCodigo()));
 		return modelMapper.map(tarefa, TarefaDTO.class);
 	}
 
@@ -81,14 +77,13 @@ public class TarefasBO {
 	 * @Rule 1 - Remover o usuário pelo seu codigo.
 	 **/
 	public void removerTarefas(Long codigo) {
-		usuarioDAO.deleteById(codigo);
+		tarefaDAO.deleteById(codigo);
 	}
 
-	@ExceptionHandler({PessoaInexistenteOuInativaException.class})
-	public ResponseEntity<Object> handlePessoaInexistenteOuInativaException(PessoaInexistenteOuInativaException ex){
-		String mensagemUsuario = messageSource.getMessage("pessoa.inexistente-ou-inativa", null, LocaleContextHolder.getLocale());
-		String mensagemDesenvolvedor = ex.toString();
-		List<ApplicationExceptionHandler.Erro> erros = Arrays.asList(new ApplicationExceptionHandler.Erro(mensagemUsuario, mensagemDesenvolvedor));
-		return ResponseEntity.badRequest().body(erros);
+
+	public UsuarioDTO atualizaTarefa(Long codigo, TarefaDTO tarefa) throws PessoaInexistenteOuInativaException {
+		Tarefa tarefaSalva = tarefaDAO.getById(codigo);
+		BeanUtils.copyProperties(tarefa, tarefaSalva, "codigo");
+		return modelMapper.map(tarefaDAO.save(tarefaSalva), UsuarioDTO.class);
 	}
 }

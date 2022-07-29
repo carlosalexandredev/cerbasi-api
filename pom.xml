@@ -12,7 +12,7 @@
 	<artifactId>webservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>cerbasi-api</name>
+	<name>webservice</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -28,31 +28,29 @@
 		    <version>2.6.1</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 
-
-<!--		<dependency>-->
-<!--    		<groupId>mysql</groupId>-->
-<!--    		<artifactId>mysql-connector-java</artifactId>-->
-<!--    		<scope>runtime</scope>-->
-<!--		</dependency>-->
-<!--		 Migrações - Flyway-->
-<!--		<dependency>-->
-<!--			<groupId>org.flywaydb</groupId>-->
-<!--			<artifactId>flyway-core</artifactId>-->
-<!--		</dependency>-->
-		<!-- Hibernate Java 8 -->
-
 		<!-- H2 Database -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>5.3.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-java8</artifactId>
@@ -72,7 +70,6 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
-		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
